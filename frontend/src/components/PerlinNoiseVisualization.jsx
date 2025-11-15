@@ -8,7 +8,8 @@ function PerlinNoiseVisualization({ sentiment, keywords }) {
   useEffect(() => {
     const sketch = (p) => {
       let particles = [];
-      let currentHue = 200; // Start with blue
+      //starting with blueish hue
+      let currentHue = 200;
       let targetHue = 200;
       let flowSpeed = 1;
       let targetFlowSpeed = 1;
@@ -19,7 +20,7 @@ function PerlinNoiseVisualization({ sentiment, keywords }) {
         p.colorMode(p.HSB, 360, 100, 100, 100);
         p.background(0, 0, 0);
 
-        // Create particles
+        //creating particles here
         for (let i = 0; i < 800; i++) {
           particles.push({
             x: p.random(p.width),
@@ -32,19 +33,15 @@ function PerlinNoiseVisualization({ sentiment, keywords }) {
       };
 
       p.draw = () => {
-        // Fade effect for trails
         p.background(0, 0, 0, 8);
 
-        // Smoothly transition colors and speed
         currentHue = p.lerp(currentHue, targetHue, 0.02);
         flowSpeed = p.lerp(flowSpeed, targetFlowSpeed, 0.02);
 
-        // Draw and update particles
         particles.forEach((particle) => {
           particle.prevX = particle.x;
           particle.prevY = particle.y;
 
-          // Get Perlin noise value for this position
           let angle =
             p.noise(
               particle.x * noiseScale,
@@ -54,20 +51,16 @@ function PerlinNoiseVisualization({ sentiment, keywords }) {
             p.TWO_PI *
             4;
 
-          // Move particle based on noise
           particle.x += p.cos(angle) * particle.speed;
           particle.y += p.sin(angle) * particle.speed;
 
-          // Wrap around edges
           if (particle.x < 0) particle.x = p.width;
           if (particle.x > p.width) particle.x = 0;
           if (particle.y < 0) particle.y = p.height;
           if (particle.y > p.height) particle.y = 0;
 
-          // Calculate opacity based on speed
           let opacity = p.map(flowSpeed, 0.5, 3, 10, 30);
 
-          // Draw line with color based on sentiment
           p.stroke(currentHue, 70, 90, opacity);
           p.strokeWeight(1.5);
           p.line(particle.prevX, particle.prevY, particle.x, particle.y);
@@ -78,7 +71,6 @@ function PerlinNoiseVisualization({ sentiment, keywords }) {
         p.resizeCanvas(p.windowWidth, p.windowHeight);
       };
 
-      // Function to update based on sentiment
       p.updateSentiment = (newSentiment) => {
         // Map sentiment (-1 to 1) to hue
         // Negative: cool colors (blue/purple) 200-280
@@ -89,17 +81,14 @@ function PerlinNoiseVisualization({ sentiment, keywords }) {
           targetHue = p.map(newSentiment, -1, 0, 280, 200);
         }
 
-        // Map sentiment to flow speed
         targetFlowSpeed = p.map(Math.abs(newSentiment), 0, 1, 0.8, 2.5);
       };
     };
 
-    // Create p5 instance
     if (!p5InstanceRef.current) {
       p5InstanceRef.current = new p5(sketch, sketchRef.current);
     }
 
-    // Cleanup
     return () => {
       if (p5InstanceRef.current) {
         p5InstanceRef.current.remove();

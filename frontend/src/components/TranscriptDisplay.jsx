@@ -4,7 +4,6 @@ import "./TranscriptDisplay.css";
 function TranscriptDisplay({ transcript }) {
   const containerRef = useRef(null);
 
-  // Auto-scroll to bottom when transcript updates
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;

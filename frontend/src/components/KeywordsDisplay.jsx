@@ -5,17 +5,15 @@ function KeywordsDisplay({ keywords }) {
   const [displayedKeywords, setDisplayedKeywords] = useState([]);
 
   useEffect(() => {
-    // Add new keywords with animation
     const newKeywords = keywords.filter((k) => !displayedKeywords.includes(k));
 
     newKeywords.forEach((keyword, index) => {
       setTimeout(() => {
         setDisplayedKeywords((prev) => [...prev, keyword]);
-      }, index * 200); // Stagger the animations
+      }, index * 200);
     });
   }, [keywords]);
 
-  // Remove duplicates and limit to last 10
   const uniqueKeywords = [...new Set(displayedKeywords)].slice(-10);
 
   return (

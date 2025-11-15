@@ -17,7 +17,6 @@ function App() {
 
   const startRecording = async () => {
     try {
-      // Request microphone access
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
       const DEEPGRAM_API_KEY = import.meta.env.REACT_APP_DEEPGRAM_API_KEY;
@@ -29,7 +28,6 @@ function App() {
       socket.onopen = () => {
         console.log("Deepgram connection opened");
 
-        // Create MediaRecorder to capture audio
         const mediaRecorder = new MediaRecorder(stream, {
           mimeType: "audio/webm",
         });
@@ -91,7 +89,6 @@ function App() {
   };
 
   const stopRecording = () => {
-    // Stop media recorder
     if (
       mediaRecorderRef.current &&
       mediaRecorderRef.current.state !== "inactive"
@@ -99,7 +96,6 @@ function App() {
       mediaRecorderRef.current.stop();
     }
 
-    // Close Deepgram socket
     if (deepgramSocketRef.current) {
       deepgramSocketRef.current.close();
     }
