@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException # type: ignore
+from fastapi import FastAPI, HTTPException 
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
@@ -44,10 +44,7 @@ async def root():
 
 @app.post("/process_text")
 async def process_text(input_data: TextInput):
-    """
-    Receives text from frontend, analyzes it with OpenAI,
-    returns sentiment and keywords
-    """
+    
     try:
 
         prompt = f"""Analyze the sentiment and extract keywords from this text: "{input_data.text}"
