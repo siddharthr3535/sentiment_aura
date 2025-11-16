@@ -19,7 +19,7 @@ function App() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
-      const DEEPGRAM_API_KEY = import.meta.env.REACT_APP_DEEPGRAM_API_KEY;
+      const DEEPGRAM_API_KEY = import.meta.env.VITE_DEEPGRAM_API_KEY;
       const deepgramUrl = `wss://api.deepgram.com/v1/listen?punctuate=true&interim_results=true`;
 
       const socket = new WebSocket(deepgramUrl, ["token", DEEPGRAM_API_KEY]);
