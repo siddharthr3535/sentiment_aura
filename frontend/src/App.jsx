@@ -12,8 +12,7 @@ function App() {
   const [keywords, setKeywords] = useState([]);
   const [emotion, setEmotion] = useState("neutral");
   const BACKEND_URL =
-    import.meta.env.VITE_BACKEND_URL ||
-    "https://sentiment-aura-backend-x7we.onrender.com";
+    import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
   const deepgramSocketRef = useRef(null);
   const mediaRecorderRef = useRef(null);
 
