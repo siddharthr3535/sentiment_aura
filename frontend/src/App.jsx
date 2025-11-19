@@ -52,7 +52,7 @@ function App() {
 
           if (data.is_final) {
             try {
-              const response = await fetch(`{BACKEND_URL}/process_text`, {
+              const response = await fetch(`${BACKEND_URL}/process_text`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ text: transcriptText }),
