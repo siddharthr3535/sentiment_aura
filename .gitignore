@@ -25,3 +25,5 @@ frontend/yarn-debug.log*
 frontend/yarn-error.log*
 frontend/.vite
 frontend/.cache
+# Local Netlify folder
+.netlify
