@@ -11,7 +11,9 @@ function App() {
   const [sentiment, setSentiment] = useState(0);
   const [keywords, setKeywords] = useState([]);
   const [emotion, setEmotion] = useState("neutral");
-
+  const BACKEND_URL =
+    import.meta.env.VITE_BACKEND_URL ||
+    "https://sentiment-aura-backend-x7we.onrender.com";
   const deepgramSocketRef = useRef(null);
   const mediaRecorderRef = useRef(null);
 
@@ -51,14 +53,11 @@ function App() {
 
           if (data.is_final) {
             try {
-              const response = await fetch(
-                "http://localhost:8000/process_text",
-                {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ text: transcriptText }),
-                }
-              );
+              const response = await fetch(`{BACKEND_URL}/process_text`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: transcriptText }),
+              });
 
               const result = await response.json();
 
